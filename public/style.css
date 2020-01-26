@@ -1,4 +1,5 @@
 body {
+  /* display: flex; */
   font-family: sans-serif;
 }
 
@@ -13,9 +14,75 @@ label {
 nav a {
   display: inline-block;
   margin: 1em;
+  color: black;
 }
 
 form div {
   margin: 1em;
-  display: inline-block;
+  /* display: inline-block; */
+  display: flex;
+  flex-direction: column;
+}
+
+/* .navContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+} */
+
+.navBar {
+  display: flex;
+  justify-content: center;
+}
+
+.appName {
+  -webkit-text-stroke: 1px black;
+  font-weight: bolder;
+  font-size: 4rem;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  display: flex;
+  justify-content: center;
+  color: darkblue;
+}
+
+.routeContainer {
+  display: flex;
+  justify-content: center;
+}
+
+.loginOrSignup {
+  padding: 2rem;
+  border: 0.5rem outset pink;
+  border-radius: 20px;
+}
+
+.loginSignup {
+  display: flex;
+  justify-content: center;
+}
+
+.centerBox {
+  display: flex;
+  justify-content: center;
+}
+
+.userHome {
+  padding: 2rem;
+  border: 0.5rem outset pink;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.pickChannel {
+  height: 5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.messageName {
+  font-weight: bold;
 }

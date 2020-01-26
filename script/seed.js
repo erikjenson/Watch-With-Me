@@ -1,16 +1,34 @@
 'use strict'
 
 const db = require('../server/db')
-const {User} = require('../server/db/models')
+const {User, Message, Channel} = require('../server/db/models')
+
+const users = [
+  {email: 'bigJ@K.com', password: '1'},
+  {email: 'bigE@J.com', password: '1'},
+  {email: 'littleE@J.com', password: '1'},
+  {email: 'smallerE@J.com', password: '1'}
+]
+const channels = [{channelName: `Janienne-Erik`}, {channelName: 'Ella-Evie'}]
+
+const messages = [
+  {text: 'Hi Erik!', channelId: 1, userId: 1},
+  {text: 'Hi Janienne!', channelId: 1, userId: 2},
+  {text: 'Can you send me the link?', channelId: 1, userId: 2},
+  {
+    text: `Hi! Evie,It's Ella, wanna watch Little Mermaid?`,
+    channelId: 2,
+    userId: 3
+  },
+  {text: 'Hell Yeah!!!', channelId: 2, userId: 4}
+]
 
 async function seed() {
   await db.sync({force: true})
+  await User.bulkCreate(users)
+  await Channel.bulkCreate(channels)
+  await Message.bulkCreate(messages)
   console.log('db synced!')
-
-  const users = await Promise.all([
-    User.create({email: 'cody@email.com', password: '123'}),
-    User.create({email: 'murphy@email.com', password: '123'})
-  ])
 
   console.log(`seeded ${users.length} users`)
   console.log(`seeded successfully`)
