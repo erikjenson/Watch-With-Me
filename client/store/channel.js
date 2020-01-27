@@ -6,6 +6,8 @@ import axios from 'axios'
 const GOT_CHANNEL = 'GOT_CHANNEL'
 const GOT_CHANNELS = 'GOT_CHANNELS'
 const SET_CHANNEL_ID = 'SET_CHANNEL_ID'
+const GOT_STREAM = 'GOT_STREAM'
+const GET_STREAM = 'GET_STREAM'
 
 /**
  * INITIAL STATE
@@ -16,9 +18,11 @@ const defaultChannel = {one: {}, all: [], channelId: '', channelName: ''}
  * ACTION CREATORS
  */
 
-const gotChannel = channel => ({type: GOT_CHANNEL, channel})
-const gotChannels = channels => ({type: GOT_CHANNELS, channels})
+export const gotChannel = channel => ({type: GOT_CHANNEL, channel})
+export const gotChannels = channels => ({type: GOT_CHANNELS, channels})
 export const setChannelId = id => ({type: SET_CHANNEL_ID, id})
+export const gotStream = stream => ({type: GOT_STREAM, stream})
+export const getStream = () => ({type: GET_STREAM})
 
 /**
  * THUNK CREATORS
@@ -29,6 +33,18 @@ export const getChannels = () => async dispatch => {
     dispatch(gotChannels(data))
   } catch (err) {
     console.error(err)
+  }
+}
+
+//sens captureStream to peer connected on socket. find way to set audio to window source.
+export const startCapture = displayMediaOptions => async dispatch => {
+  try {
+    const captureStream = await navigator.mediaDevices.getDisplayMedia(
+      displayMediaOptions
+    )
+    dispatch(gotStream(captureStream))
+  } catch (err) {
+    console.error('Error: ' + err)
   }
 }
 
@@ -51,6 +67,10 @@ export default function(state = defaultChannel, action) {
       return {...state, all: action.channels}
     case SET_CHANNEL_ID:
       return {...state, channelId: action.id}
+    case GOT_STREAM:
+      return {...state, stream: action.stream}
+    case GET_STREAM:
+      return {...state}
     default:
       return state
   }
